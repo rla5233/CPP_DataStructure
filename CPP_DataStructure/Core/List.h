@@ -113,6 +113,8 @@ namespace ksw
 
 		inline iterator insert(const iterator& _Iter, const Type& _Data)
 		{
+
+
 			return iterator();
 		}
 
