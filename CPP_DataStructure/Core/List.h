@@ -29,16 +29,17 @@ namespace ksw
 
 			~iterator() {};
 
-			// 이거 수정 필요 할 듯
-			inline void operator++()
+			inline iterator& operator++()
 			{
 				CurNode = CurNode->Next;
+				return *this;
 			}
 
-			// 이거 수정 필요 할 듯
-			inline void operator--()
+			inline iterator operator++(Type)
 			{
-				CurNode = CurNode->Prev;
+				iterator Result(CurNode);
+				CurNode = CurNode->Next;
+				return Result;
 			}
 
 			inline Type& operator*()
@@ -63,8 +64,8 @@ namespace ksw
 	public:
 		// constructor destructor
 		list();
-		list(size_t _Size); // 수정
-		list(Type _Data, size_t _Size); // 수정
+		list(size_t _Size);
+		list(Type _Data, size_t _Size);
 		~list();
 
 		// delete Function
@@ -83,7 +84,7 @@ namespace ksw
 		inline void pop_front();
 		inline void pop_back();
 
-		inline void clear();// 수정
+		inline void clear();
 
 		inline size_t size()
 		{
@@ -107,77 +108,46 @@ namespace ksw
 			return iterator(End);
 		}
 
-		inline iterator insert(iterator& _Iter, const Type& _Data)// 수정
+		inline iterator insert(iterator& _Iter, const Type& _Data)
 		{
 			Node* NewNode = new Node();
 			NewNode->Data = _Data;
 
-			if (nullptr == Start)
-			{
-				_Iter->CurNode = NewNode;
-				_Iter->CurNode->Next = nullptr;
-				_Iter->CurNode->Prev = nullptr;
+			Node* CurNode = NewNode;
+			Node* PrevNode = _Iter.CurNode->Prev;
+			Node* NextNode = _Iter.CurNode;
 
-				Start = _Iter->CurNode;
-				End = _Iter->CurNode;
-			}
-			else if (Start == _Iter->CurNode)
-			{
-				Node* NextNode = Start->Next;
-				Node* PrevNode = nullptr;
+			CurNode->Prev = PrevNode;
+			CurNode->Next = NextNode;
 
-				_Iter->CurNode = NewNode;
-				_Iter->CurNode->Next = NextNode;
-				_Iter->CurNode->Prev = PrevNode;
+			PrevNode->Next = CurNode;
+			NextNode->Prev = CurNode;
 
-				Start = _Iter->CurNode;
-			}
+			_Iter.CurNode = CurNode;
 
 			++Size;
 			return _Iter;
 		}
 
-		inline iterator erase(iterator& _Iter)// 수정
+		inline iterator erase(iterator& _Iter)
 		{
-			Node* NextNode = _Iter.CurNode->Next;
-			Node* PrevNode = _Iter.CurNode->Prev;
+			Node* CurNode = _Iter.CurNode;
 
-			if (Start == _Iter.CurNode)
-			{
-				if (nullptr != NextNode)
-				{
-					NextNode->Prev = nullptr;
-				}
-				else
-				{
-					End = nullptr;
-				}
+			Node* NextNode = CurNode->Next;
+			Node* PrevNode = CurNode->Prev;
 
-				Start = NextNode;
-			}
-			else if (End == _Iter.CurNode)
-			{
-				if (nullptr != PrevNode)
-				{
-					PrevNode->Next = nullptr;
-				}
-				else
-				{
-					Start = nullptr;
-				}
+			NextNode->Prev = PrevNode;
+			PrevNode->Next = NextNode;
 
-				End = PrevNode;
-			}
-			else
-			{
-				NextNode->Prev = PrevNode;
-				PrevNode->Next = NextNode;
-			}
-
-			delete _Iter.CurNode;
+			delete CurNode;
 			--Size;
 
 			_Iter.CurNode = NextNode;
+			if (End == _Iter.CurNode)
+			{
+				return nullptr;
+			}
+
 			return _Iter;
 		}
 
@@ -203,6 +173,12 @@ namespace ksw
 	template<typename Type>
 	inline list<Type>::list(size_t _Size)
 	{
+		Start = new Node();
+		End = new Node();
+
+		Start->Next = End;
+		End->Prev = Start;
+
 		for (size_t i = 0; i < _Size; i++)
 		{
 			push_back(Type());
@@ -212,6 +188,12 @@ namespace ksw
 	template<typename Type>
 	inline list<Type>::list(Type _Data, size_t _Size)
 	{
+		Start = new Node();
+		End = new Node();
+
+		Start->Next = End;
+		End->Prev = Start;
+
 		for (size_t i = 0; i < _Size; i++)
 		{
 			push_back(_Data);
@@ -303,16 +285,17 @@ namespace ksw
 	template<typename Type>
 	inline void list<Type>::clear()
 	{
-		Node* CurNode = Start;
-		while (nullptr != CurNode)
+		Node* CurNode = Start->Next;
+		while (End != CurNode)
 		{
 			Node* NextNode = CurNode->Next;
 			delete CurNode;
 			CurNode = NextNode;
 		}
 
-		Start = nullptr;
-		End = nullptr;
+		Start->Next = End;
+		End->Prev = Start;
+
 		Size = 0;
 	}
 }

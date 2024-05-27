@@ -15,10 +15,9 @@ void Test::ListTest()
 
 	ksw::list<int> li1;
 	ksw::list<int>::iterator it1;
-	
-	//ksw::list<int> li2(1, 5);
+	ksw::list<int>::iterator it2;
 
-	EndlPrint(li1.empty());
+	Print(li1.empty());
 
 	li1.push_back(3);
 	li1.push_back(4);
@@ -53,4 +52,30 @@ void Test::ListTest()
 		std::string str = "Back : " + std::to_string(li1.back());
 		EndlPrint(str);
 	}
+
+	it1 = li1.begin();
+	it1 = li1.erase(it1);
+
+	EndlPrint(*it1);
+
+	Endl();
+	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
+	{
+		PrintFor(*it1);
+	}
+
+
+	it1 = li1.begin();
+	it1 = li1.insert(it1, 10);
+	it2 = it1++;
+	EndlPrint(*it2);
+	EndlPrint(*it1);
+
+	Endl();
+	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
+	{
+		PrintFor(*it1);
+	}
+
+	int a = 0;
 }

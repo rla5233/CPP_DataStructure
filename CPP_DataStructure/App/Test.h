@@ -15,6 +15,12 @@ public:
 	Test& operator=(Test&& _Other) noexcept = delete;
 
 	template<typename Type>
+	static void Print(Type _Data)
+	{
+		std::cout << _Data;
+	}
+
+	template<typename Type>
 	static void PrintFor(Type _Data)
 	{
 		std::cout << _Data << " ";
