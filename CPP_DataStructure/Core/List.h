@@ -113,9 +113,32 @@ namespace ksw
 
 		inline iterator insert(const iterator& _Iter, const Type& _Data)
 		{
+			Node* NewNode = new Node();
+			NewNode->Data = _Data;
 
+			Node* NextNode = _Iter.CurNode->Next;
+			Node* PrevNode = _Iter.CurNode->Prev;
 
-			return iterator();
+			if (Start == _Iter.CurNode)
+			{
+
+			}
+			else if (End == _Iter.CurNode)
+			{
+
+			}
+			else
+			{
+				_Iter.CurNode->Next = NextNode;
+				_Iter.CurNode->Prev = PrevNode;
+
+				PrevNode->Next = _Iter.CurNode;
+				NextNode->Prev = _Iter.CurNode;
+			}
+
+			++Size;
+
+			return _Iter;
 		}
 
 		inline iterator erase(iterator& _Iter)
