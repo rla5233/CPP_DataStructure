@@ -14,8 +14,9 @@ void Test::ListTest()
 	PrintEndl("<List Å×½ºÆ®>");
 
 	ksw::list<int> li1;
-	ksw::list<int> li2(1, 5);
 	ksw::list<int>::iterator it1;
+	
+	//ksw::list<int> li2(1, 5);
 
 	EndlPrint(li1.empty());
 
@@ -52,38 +53,4 @@ void Test::ListTest()
 		std::string str = "Back : " + std::to_string(li1.back());
 		EndlPrint(str);
 	}
-	
-	Endl();
-	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
-	{
-		PrintFor(*it1);
-	}
-
-	{
-		std::string str = "Size : " + std::to_string(li1.size());
-		EndlPrint(str);
-	}
-
-	it1 = li1.begin();
-	it1 = li1.erase(it1);
-	EndlPrint(*it1);
-
-	EndlPrint(li1.empty());
-
-	Endl();
-	for (it1 = li2.begin(); it1 != li2.end(); ++it1)
-	{
-		PrintFor(*it1);
-	}
-
-	li2.clear();
-
-	Endl();
-	for (it1 = li2.begin(); it1 != li2.end(); ++it1)
-	{
-		PrintFor(*it1);
-	}
-
-	//std::list<int> li3;
-
 }
