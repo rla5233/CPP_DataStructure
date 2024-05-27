@@ -11,19 +11,23 @@ Test::~Test()
 
 void Test::ListTest()
 {
-	ksw::list<int> li_1;
-	ksw::list<int>::iterator it_1;
+	PrintEndl("List Å×½ºÆ®");
 
-	li_1.push_back(3);
-	li_1.push_back(4);
-	li_1.push_back(5);
-	li_1.push_front(2);
-	li_1.push_front(1);
+	ksw::list<int> li1;
+	ksw::list<int>::iterator it1;
 
-	for (it_1 = li_1.begin(); it_1 != li_1.end(); ++it_1)
+	li1.push_back(3);
+	li1.push_back(4);
+	li1.push_back(5);
+	li1.push_front(2);
+	li1.push_front(1);
+
+	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
 	{
-		PrintFor(*it_1);
+		PrintFor(*it1);
 	}
 
+	std::string str = "Front : " + std::to_string(li1.front());
+	EndlPrint(str);
 
 }

@@ -19,6 +19,18 @@ public:
 	{
 		std::cout << _Data << " ";
 	}
+
+	template<typename Type>
+	static void PrintEndl(Type _Data)
+	{
+		std::cout << _Data << std::endl;
+	}
+
+	template<typename Type>
+	static void EndlPrint(Type _Data)
+	{
+		std::cout << std::endl << _Data;
+	}
 	
 	static void Endl()
 	{
