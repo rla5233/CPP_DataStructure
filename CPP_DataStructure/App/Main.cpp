@@ -2,7 +2,7 @@
 
 int main()
 {
-
+	LeakCheck;
 
 
 	return 0;
