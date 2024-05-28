@@ -134,6 +134,4 @@ namespace ksw
 
 		Size = 0;
 	}
-
-
 }
