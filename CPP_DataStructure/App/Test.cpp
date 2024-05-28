@@ -71,11 +71,28 @@ void Test::ListTest()
 	EndlPrint(*it2);
 	EndlPrint(*it1);
 
+	li1.push_back(10);
+	li1.push_front(10);
+
 	Endl();
 	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
 	{
 		PrintFor(*it1);
 	}
 
-	int a = 0;
+
+	size_t count = li1.remove(10);
+
+	Endl();
+	for (it1 = li1.begin(); it1 != li1.end(); ++it1)
+	{
+		PrintFor(*it1);
+	}
+
+	count = li1.front();
+	count = li1.back();
+
+	count = 0;
+
+
 }

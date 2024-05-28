@@ -84,6 +84,8 @@ namespace ksw
 		inline void pop_front();
 		inline void pop_back();
 
+		inline size_t remove(const Type& _Data);
+
 		inline void clear();
 
 		inline size_t size()
@@ -280,6 +282,37 @@ namespace ksw
 		
 		delete CurNode;
 		--Size;
+	}
+
+	template<typename Type>
+	inline size_t list<Type>::remove(const Type& _Data)
+	{
+		size_t RemoveCount = 0;
+
+		Node* CurNode = Start->Next;
+		while (End != CurNode)
+		{
+			if (_Data == CurNode->Data)
+			{
+				Node* PrevNode = CurNode->Prev;
+				Node* NextNode = CurNode->Next;
+
+				PrevNode->Next = NextNode;
+				NextNode->Prev = PrevNode;
+
+				delete CurNode;
+				CurNode = NextNode;
+
+				--Size;
+				++RemoveCount;
+			}
+			else
+			{
+				CurNode = CurNode->Next;
+			}
+		}
+
+		return RemoveCount;
 	}
 
 	template<typename Type>
