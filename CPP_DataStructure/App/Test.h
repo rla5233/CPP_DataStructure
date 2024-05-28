@@ -44,7 +44,7 @@ public:
 	}
 
 public:
-	static void ListTest();
+	static void TestFunc();
 
 
 };

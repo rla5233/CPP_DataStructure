@@ -9,10 +9,10 @@ Test::~Test()
 {
 }
 
-void Test::ListTest()
+void Test::TestFunc()
 {
-	PrintEndl("<List 테스트>");
+	PrintEndl("<Queue 테스트>");
 
-
+	ksw::queue<int> q;
 
 }
