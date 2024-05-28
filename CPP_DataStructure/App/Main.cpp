@@ -5,7 +5,7 @@ int main()
 {
 	LeakCheck;
 
-	Test::TestFunc();
+	Test::ListTest();
 
 
 

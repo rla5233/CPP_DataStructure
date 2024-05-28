@@ -44,8 +44,8 @@ public:
 	}
 
 public:
-	static void TestFunc();
-
+	static void ListTest();
+	static void QueueTest();
 
 };
 
