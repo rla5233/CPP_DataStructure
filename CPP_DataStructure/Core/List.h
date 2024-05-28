@@ -68,8 +68,8 @@ namespace ksw
 		~list();
 
 	public:
-		inline Type front();
-		inline Type back();
+		inline Type& front();
+		inline Type& back();
 
 		inline void push_front(const Type& _Data);
 		inline void push_back(const Type& _Data);
@@ -208,14 +208,24 @@ namespace ksw
 	}
 
 	template<typename Type>
-	inline Type list<Type>::front()
+	inline Type& list<Type>::front()
 	{
+		if (0 == Size)
+		{
+			MsgBoxAssert("비어있는 list 입니다.");
+		}
+
 		return Start->Next->Data;
 	}
 
 	template<typename Type>
-	inline Type list<Type>::back()
+	inline Type& list<Type>::back()
 	{
+		if (0 == Size)
+		{
+			MsgBoxAssert("비어있는 list 입니다.");
+		}
+
 		return End->Prev->Data;
 	}
 

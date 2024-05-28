@@ -15,27 +15,27 @@ namespace ksw
 		};
 
 	public:
-		class iterator
-		{
-		public:
-			iterator() {};
-			iterator(Node* _CurNode)
-				: CurNode(_CurNode)
-			{};
-
-			~iterator() {};
-
-
-		private:
-			Node* CurNode = nullptr;
-		};
-
-	public:
 		queue();
 		~queue();
 
 	public:
-		void clear();
+		inline Type& front();
+		inline Type& back();
+
+		inline void push(const Type& _Data);
+		inline void pop();
+
+		inline void clear();
+
+		inline bool empty()
+		{
+			return 0 == Size;
+		}
+
+		inline size_t size()
+		{
+			return Size;
+		}
 
 	private:
 		Node* Start = nullptr;
@@ -65,6 +65,59 @@ namespace ksw
 			delete CurNode;
 			CurNode = Next;
 		}
+	}
+
+	template<typename Type>
+	inline Type& queue<Type>::front()
+	{
+		if (0 == Size)
+		{
+			MsgBoxAssert("비어있는 queue 입니다.");
+		}
+
+		return Start->Next->Data;
+	}
+
+	template<typename Type>
+	inline Type& queue<Type>::back()
+	{
+		if (0 == Size)
+		{
+			MsgBoxAssert("비어있는 queue 입니다.");
+		}
+
+		return End->Prev->Data;
+	}
+
+	template<typename Type>
+	inline void queue<Type>::push(const Type& _Data)
+	{
+		Node* NewNode = new Node();
+		NewNode->Data = _Data;
+
+		Node* PrevNode = End->Prev;
+		PrevNode->Next = NewNode;
+		End->Prev = NewNode;
+		NewNode->Next = End;
+
+		++Size;
+	}
+
+	template<typename Type>
+	inline void queue<Type>::pop()
+	{
+		if (0 == Size)
+		{
+			MsgBoxAssert("비어있는 queue 입니다.");
+		}
+
+		Node* CurNode = Start->Next;
+		Node* NextNode = CurNode->Next;
+
+		Start->Next = NextNode;
+		delete CurNode;
+
+		--Size;
 	}
 
 	template<typename Type>
