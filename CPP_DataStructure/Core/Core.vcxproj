@@ -167,12 +167,9 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Queue.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="List.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>

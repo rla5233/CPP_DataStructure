@@ -7,6 +7,9 @@
     <Filter Include="List">
       <UniqueIdentifier>{d689350e-b020-402f-b876-fd98f1e21bad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Queue">
+      <UniqueIdentifier>{cc806363-e6f4-487b-82c7-2b3208ded262}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -15,13 +18,13 @@
     <ClInclude Include="List.h">
       <Filter>List</Filter>
     </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Queue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
-    </ClCompile>
-    <ClCompile Include="List.cpp">
-      <Filter>List</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
