@@ -2,14 +2,17 @@
 
 namespace ksw
 {
-	// 설명 : list 클래스
-
 	template<typename Type>
 	class list
 	{
 	private:
 		class Node
 		{
+		public:
+			Node() {};
+			Node(Type _Data) : Data(_Data) {};
+			~Node() {};
+
 		public:
 			Node* Prev = nullptr;
 			Node* Next = nullptr;

@@ -7,6 +7,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{faa66227-737b-42e9-b15e-f9c12ae6d704}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{fd70a547-f3c6-4261-8909-0aa81d56d300}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
