@@ -25,11 +25,7 @@ namespace ksw
 			friend class list;
 		public:
 			iterator() {};
-
-			iterator(Node* _CurNode)
-				: CurNode(_CurNode)
-			{};
-
+			iterator(Node* _CurNode) : CurNode(_CurNode) {};
 			~iterator() {};
 
 			inline iterator& operator++()
@@ -108,8 +104,7 @@ namespace ksw
 
 		inline iterator insert(iterator& _Iter, const Type& _Data)
 		{
-			Node* NewNode = new Node();
-			NewNode->Data = _Data;
+			Node* NewNode = new Node(_Data);
 
 			Node* CurNode = NewNode;
 			Node* PrevNode = _Iter.CurNode->Prev;
@@ -235,8 +230,7 @@ namespace ksw
 	template<typename Type>
 	inline void list<Type>::push_front(const Type& _Data)
 	{
-		Node* NewNode = new Node;
-		NewNode->Data = _Data;
+		Node* NewNode = new Node(_Data);
 
 		Node* NextNode = Start->Next;
 		Start->Next = NewNode;
@@ -251,8 +245,7 @@ namespace ksw
 	template<typename Type>
 	inline void list<Type>::push_back(const Type& _Data)
 	{
-		Node* NewNode = new Node;
-		NewNode->Data = _Data;
+		Node* NewNode = new Node(_Data);
 
 		Node* PrevNode = End->Prev;
 		End->Prev = NewNode;
