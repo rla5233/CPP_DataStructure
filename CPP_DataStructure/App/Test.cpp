@@ -100,6 +100,7 @@ void Test::QueueTest()
 	PrintEndl("<Queue Å×½ºÆ®>");
 
 	ksw::queue<int> q1;
+	ksw::queue<int> q2;
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -110,14 +111,19 @@ void Test::QueueTest()
 
 	Endl();
 	size_t Size = q1.size();
-	for (size_t i = 0; i < Size; i++)
-	{
-		PrintEndl("Size : " + std::to_string(q1.size()));
-		PrintEndl("Front : " + std::to_string(q1.front()));
-		PrintEndl("Back : " + std::to_string(q1.back()));
-		q1.pop();
-	}
+	//for (size_t i = 0; i < Size; i++)
+	//{
+	//	PrintEndl("Size : " + std::to_string(q1.size()));
+	//	PrintEndl("Front : " + std::to_string(q1.front()));
+	//	PrintEndl("Back : " + std::to_string(q1.back()));
+	//	q1.pop();
+	//}
 
 	EndlPrint("Size : " + std::to_string(q1.size()));
 
+	q2.push(0);
+
+	q1.swap(q2);
+
+	int a = 0;
 }
