@@ -16,5 +16,6 @@ void Timer::TimeCheck(std::function<void()> _CheckFunc)
 	_CheckFunc();
 
 	std::chrono::duration<double> Sec = std::chrono::system_clock::now() - Start;
+	std::cout << std::fixed << std::setprecision(10);
 	std::cout << "\n\n수행시간(초) : " << Sec.count() << " seconds\n\n";
 }
