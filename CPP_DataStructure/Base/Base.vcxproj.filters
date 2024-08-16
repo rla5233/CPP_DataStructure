@@ -7,6 +7,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{faa66227-737b-42e9-b15e-f9c12ae6d704}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{1d997ae7-eaf6-440c-a524-3977b9c18649}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -15,6 +18,9 @@
     <ClInclude Include="Debug.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -22,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

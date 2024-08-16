@@ -94,7 +94,6 @@ void Test::ListTest()
 
 	count = 0;
 }
-
 void Test::QueueTest()
 {
 	PrintEndl("<Queue Å×½ºÆ®>");
