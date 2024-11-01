@@ -21,6 +21,9 @@
     <ClInclude Include="Queue.h">
       <Filter>Queue</Filter>
     </ClInclude>
+    <ClInclude Include="DoubleList.h">
+      <Filter>List</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
