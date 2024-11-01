@@ -38,7 +38,7 @@ namespace ksw
 			// 전위
 			inline iterator& operator++()
 			{
-				if (End == CurNode)
+				if (nullptr == CurNode->Next)
 					MsgBoxAssert("CurNode is End");
 
 				CurNode = CurNode->Next;
@@ -48,7 +48,7 @@ namespace ksw
 			// 후위
 			inline iterator operator++(T)
 			{
-				if (End == CurNode)
+				if (nullptr == CurNode->Next)
 					MsgBoxAssert("CurNode is End");
 
 				iterator Temp(CurNode);
@@ -59,7 +59,7 @@ namespace ksw
 			// 전위
 			inline iterator& operator--()
 			{
-				if (Start == CurNode)
+				if (nullptr == CurNode->Prev)
 					MsgBoxAssert("CurNode is Start");
 
 				CurNode = CurNode->Prev;
@@ -69,7 +69,7 @@ namespace ksw
 			// 후위
 			inline iterator operator--(T)
 			{
-				if (Start == CurNode)
+				if (nullptr == CurNode->Prev)
 					MsgBoxAssert("CurNode is Start");
 
 				iterator Temp(CurNode);
@@ -82,14 +82,14 @@ namespace ksw
 				return CurNode->Data;
 			}
 
-			inline operator==(const iterator& _Other)
+			inline bool operator==(const iterator& _Other)
 			{
-				return CurNode == _Other->CurNode;
+				return CurNode == _Other.CurNode;
 			}
 
-			inline operator!=(const iterator& _Other)
+			inline bool operator!=(const iterator& _Other)
 			{
-				return CurNode != _Other->CurNode;
+				return CurNode != _Other.CurNode;
 			}
 
 		private:
@@ -127,13 +127,12 @@ namespace ksw
 		inline void pop_front();
 		inline void pop_back();
 		
+		inline size_t size();
+		inline bool empty();
+		inline void clear();
+
 		// insert
 		// erase
-		// clear
-		// size
-		// front
-		// back
-		// empty
 		// remove
 		// remove if
 		// reverse
@@ -158,6 +157,13 @@ namespace ksw
 	template<typename T>
 	inline DoubleList<T>::~DoubleList()
 	{
+		clear();
+
+		Start->Next = nullptr;
+		delete Start;
+
+		End->Prev = nullptr;
+		delete End;
 	}
 
 	// Member Function
@@ -222,6 +228,8 @@ namespace ksw
 		NextNode->Prev = Start;
 		--Size;
 
+		DelNode->Next = nullptr;
+		DelNode->Prev = nullptr;
 		delete DelNode;
 	}
 
@@ -238,6 +246,38 @@ namespace ksw
 		PrevNode->Next = End;
 		--Size;
 		
+		DelNode->Next = nullptr;
+		DelNode->Prev = nullptr;
 		delete DelNode;
+	}
+
+	template<typename T>
+	inline size_t DoubleList<T>::size()
+	{
+		return Size;
+	}
+
+	template<typename T>
+	inline bool DoubleList<T>::empty()
+	{
+		return 0 == Size;
+	}
+
+	template<typename T>
+	inline void DoubleList<T>::clear()
+	{
+		while (!empty())
+		{
+			Node* CurNode = Start->Next;
+			Node* NextNode = CurNode->Next;
+			
+			Start->Next = NextNode;
+			NextNode->Prev = Start;
+			--Size;
+
+			CurNode->Next = nullptr;
+			CurNode->Prev = nullptr;
+			delete CurNode;
+		}
 	}
 }

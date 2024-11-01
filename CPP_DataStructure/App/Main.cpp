@@ -16,12 +16,12 @@ int main()
 
 		for (int i = 0; i < 5; i++)
 		{
-			li.push_back(i);
+			li.push_back(i + 10);
 		}
 
 		for (int i = 0; i < 5; i++)
 		{
-			li.push_front(i);
+			li.push_front(i + 10);
 		}
 	}
 	
