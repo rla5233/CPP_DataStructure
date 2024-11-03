@@ -116,6 +116,23 @@ namespace ksw
 			return iterator(End);
 		}
 
+		inline iterator insert(const iterator _Where, const T& _Data)
+		{
+			Node* NewNode = new Node(_Data);
+			
+			Node* CurNode = _Where.CurNode;
+			Node* PrevNode = CurNode->Prev;
+
+			NewNode->Next = CurNode;
+			CurNode->Prev = NewNode;
+
+			NewNode->Prev = PrevNode;
+			PrevNode->Next = NewNode;
+
+			++Size;
+			return iterator(NewNode);
+		}
+
 	public:
 		// 멤버 함수
 		inline T& front();
@@ -131,6 +148,7 @@ namespace ksw
 		inline bool empty();
 		inline void clear();
 
+
 		// insert
 		// erase
 		// remove
@@ -138,8 +156,6 @@ namespace ksw
 		// reverse
 		// swap
 		// sort
-
-
 	};
 
 	// 구현
