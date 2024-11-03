@@ -11,7 +11,7 @@ namespace ksw
 		{
 		public:
 			Node() {};
-			Node(T _Data) : Data(_Data) {};
+			Node(T _Val) : Data(_Val) {};
 			~Node() {};
 
 		public:
@@ -101,7 +101,7 @@ namespace ksw
 		// Constructor
 		DoubleList();
 		DoubleList(size_t _Size);
-		DoubleList(size_t _Size, const T& _Data);
+		DoubleList(size_t _Size, const T& _Val);
 
 		// Destructor
 		~DoubleList();
@@ -118,9 +118,9 @@ namespace ksw
 			return iterator(End);
 		}
 
-		inline iterator insert(const iterator _Where, const T& _Data)
+		inline iterator insert(const iterator _Where, const T& _Val)
 		{
-			Node* NewNode = new Node(_Data);
+			Node* NewNode = new Node(_Val);
 			
 			Node* CurNode = _Where.CurNode;
 			Node* PrevNode = CurNode->Prev;
@@ -161,8 +161,8 @@ namespace ksw
 		inline T& front();
 		inline T& back();
 
-		inline void push_front(const T& _Data);
-		inline void push_back(const T& _Data);
+		inline void push_front(const T& _Val);
+		inline void push_back(const T& _Val);
 		
 		inline void pop_front();
 		inline void pop_back();
@@ -170,9 +170,9 @@ namespace ksw
 		inline size_t size();
 		inline bool empty();
 		inline void clear();
+		
+		size_t remove(const T& _Val);
 
-		// remove
-		// remove if
 		// reverse
 		// swap
 		// sort
@@ -204,7 +204,7 @@ namespace ksw
 	}
 
 	template<typename T>
-	inline DoubleList<T>::DoubleList(size_t _Size, const T& _Data)
+	inline DoubleList<T>::DoubleList(size_t _Size, const T& _Val)
 	{
 		Start = new Node();
 		End = new Node();
@@ -213,7 +213,7 @@ namespace ksw
 		End->Prev = Start;
 
 		for (int i = 0; i < _Size; ++i)
-			push_back(_Data);
+			push_back(_Val);
 	}
 
 	template<typename T>
@@ -248,9 +248,9 @@ namespace ksw
 	}
 
 	template<typename T>
-	inline void DoubleList<T>::push_front(const T& _Data)
+	inline void DoubleList<T>::push_front(const T& _Val)
 	{
-		Node* NewNode = new Node(_Data);
+		Node* NewNode = new Node(_Val);
 		Node* NextNode = Start->Next;
 		
 		Start->Next = NewNode;
@@ -263,9 +263,9 @@ namespace ksw
 	}
 
 	template<typename T>
-	inline void DoubleList<T>::push_back(const T& _Data)
+	inline void DoubleList<T>::push_back(const T& _Val)
 	{
-		Node* NewNode = new Node(_Data);
+		Node* NewNode = new Node(_Val);
 		Node* PrevNode = End->Prev;
 
 		End->Prev = NewNode;
@@ -341,5 +341,24 @@ namespace ksw
 			CurNode->Prev = nullptr;
 			delete CurNode;
 		}
+	}
+	template<typename T>
+	inline size_t DoubleList<T>::remove(const T& _Val)
+	{
+		size_t RemoveCnt = 0;
+		for (auto it = this->begin(); it != this->end();)
+		{
+			if (_Val == it.CurNode->Data)
+			{
+				it = erase(it);
+				++RemoveCnt;
+			}
+			else
+			{
+				++it;
+			}
+		}
+
+		return RemoveCnt;
 	}
 }
