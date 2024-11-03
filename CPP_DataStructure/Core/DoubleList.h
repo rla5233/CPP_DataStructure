@@ -171,11 +171,9 @@ namespace ksw
 		inline bool empty();
 		inline void clear();
 		
-		size_t remove(const T& _Val);
+		inline size_t remove(const T& _Val);
+		inline void swap(DoubleList& _Other);
 
-		// reverse
-		// swap
-		// sort
 	};
 
 	// ±¸Çö
@@ -342,6 +340,7 @@ namespace ksw
 			delete CurNode;
 		}
 	}
+
 	template<typename T>
 	inline size_t DoubleList<T>::remove(const T& _Val)
 	{
@@ -360,5 +359,21 @@ namespace ksw
 		}
 
 		return RemoveCnt;
+	}
+
+	template<typename T>
+	inline void DoubleList<T>::swap(DoubleList& _Other)
+	{
+		Node* StartTmp = Start;
+		Node* EndTmp = End;
+		size_t SizeTmp = Size;
+
+		Start = _Other.Start;
+		End = _Other.End;
+		Size = _Other.Size;
+
+		_Other.Start = StartTmp;
+		_Other.End = EndTmp;
+		_Other.Size = SizeTmp;
 	}
 }
