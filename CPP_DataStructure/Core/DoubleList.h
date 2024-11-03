@@ -100,6 +100,8 @@ namespace ksw
 	public:
 		// Constructor
 		DoubleList();
+		DoubleList(size_t _Size);
+		DoubleList(size_t _Size, const T& _Data);
 
 		// Destructor
 		~DoubleList();
@@ -148,8 +150,6 @@ namespace ksw
 		inline bool empty();
 		inline void clear();
 
-
-		// insert
 		// erase
 		// remove
 		// remove if
@@ -168,6 +168,32 @@ namespace ksw
 
 		Start->Next = End;
 		End->Prev = Start;
+	}
+
+	template<typename T>
+	inline DoubleList<T>::DoubleList(size_t _Size)
+	{
+		Start = new Node();
+		End = new Node();
+
+		Start->Next = End;
+		End->Prev = Start;
+
+		for (int i = 0; i < _Size; ++i)
+			push_back(0);
+	}
+
+	template<typename T>
+	inline DoubleList<T>::DoubleList(size_t _Size, const T& _Data)
+	{
+		Start = new Node();
+		End = new Node();
+
+		Start->Next = End;
+		End->Prev = Start;
+
+		for (int i = 0; i < _Size; ++i)
+			push_back(_Data);
 	}
 
 	template<typename T>
