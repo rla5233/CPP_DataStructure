@@ -6,9 +6,8 @@ int main()
 	LeakCheck;
 
 	{
-		std::list<int> li(5, 1);
+		std::list<int> li;
 
-		int a = 0;
 
 		for (int i = 0; i < 5; i++)
 			li.push_back(i + 10);
@@ -16,6 +15,8 @@ int main()
 		auto it = li.begin();
 		++it;
 
+		auto it2 = li.erase(it);
+		int a = 0;
 
 		for (auto& cur : li)
 			std::cout << cur << " ";
@@ -24,15 +25,17 @@ int main()
 
 	std::cout << std::endl;
 	{
-		ksw::DoubleList<int> li(5, 1);
+		ksw::DoubleList<int> li;
 
-		int a = 0;
 
 		for (int i = 0; i < 5; i++)
 			li.push_back(i + 10);
 
 		auto it = li.begin();
 		++it;
+
+		auto it2 = li.erase(it);
+		int a = 0;
 
 		for (auto& cur : li)
 			std::cout << cur << " ";

@@ -135,6 +135,27 @@ namespace ksw
 			return iterator(NewNode);
 		}
 
+		inline iterator erase(const iterator _Where)
+		{
+			if (Size == 0)
+				MsgBoxAssert("List is Empty");
+
+			Node* DelNode = _Where.CurNode;
+			
+			Node* PrevNode = DelNode->Prev;
+			Node* NextNode = DelNode->Next;
+
+			NextNode->Prev = PrevNode;
+			PrevNode->Next = NextNode;
+			--Size;
+
+			DelNode->Next = nullptr;
+			DelNode->Prev = nullptr;
+			delete DelNode;
+
+			return iterator(NextNode);
+		}
+
 	public:
 		// ¸â¹ö ÇÔ¼ö
 		inline T& front();
@@ -150,7 +171,6 @@ namespace ksw
 		inline bool empty();
 		inline void clear();
 
-		// erase
 		// remove
 		// remove if
 		// reverse
