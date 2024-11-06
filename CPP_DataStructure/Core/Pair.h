@@ -9,6 +9,8 @@ namespace ksw
 		Pair() {};
 		Pair(const T1& _Val1, const T2& _Val2) : first(_Val1), second(_Val2) {};
 
+		~Pair() {};
+
 		void operator=(const Pair& _Other)
 		{
 			first = _Other.first;
