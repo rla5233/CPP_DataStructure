@@ -10,6 +10,9 @@
     <Filter Include="Queue">
       <UniqueIdentifier>{cc806363-e6f4-487b-82c7-2b3208ded262}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pair">
+      <UniqueIdentifier>{1176b3bf-1010-46d3-8a2d-9b7e20c3d78f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -23,6 +26,9 @@
     </ClInclude>
     <ClInclude Include="DoubleList.h">
       <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.h">
+      <Filter>Pair</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

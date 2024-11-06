@@ -6,57 +6,21 @@ int main()
 	LeakCheck;
 
 	{
-		std::list<int> li1 = { 1, 2, 3 };
-		std::list<int> li2 = { 4, 3, 2, 1 };
+		std::pair<std::string, int> p1 = { "AAA", 2 };
+		std::pair<std::string, int> p2 = { "BBB", 0 };
+		p1 = p2;
 
-		for (auto& cur : li1)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-
-		for (auto& cur : li2)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-
-		li1.swap(li2);
-
-		for (auto& cur : li1)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-		
-		for (auto& cur : li2)
-			std::cout << cur << " ";
-		std::cout << std::endl;
+		std::cout << p1.first << std::endl;
+		std::cout << p1.second << std::endl;
 	}
 
-
-	std::cout << std::endl;
 	{
-		ksw::DoubleList<int> li1;
-		ksw::DoubleList<int> li2;
+		ksw::Pair<std::string, int> p1 = { "AAA", 2 };
+		ksw::Pair<std::string, int> p2 = { "BBB", 0 };
+		p1 = p2;
 
-		for (int i = 1; i <= 3; i++)
-			li1.push_back(i);
-
-		for (int i = 1; i <= 4; i++)
-			li2.push_front(i);
-
-		for (auto& cur : li1)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-
-		for (auto& cur : li2)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-
-		li1.swap(li2);
-
-		for (auto& cur : li1)
-			std::cout << cur << " ";
-		std::cout << std::endl;
-
-		for (auto& cur : li2)
-			std::cout << cur << " ";
-		std::cout << std::endl;
+		std::cout << p1.first << std::endl;
+		std::cout << p1.second << std::endl;
 	}
 
 	return 0;

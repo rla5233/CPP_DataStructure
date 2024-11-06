@@ -164,6 +164,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Pair.h" />
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>

@@ -11,7 +11,7 @@ namespace ksw
 		{
 		public:
 			Node() {};
-			Node(T _Val) : Data(_Val) {};
+			Node(const T& _Val) : Data(_Val) {};
 			~Node() {};
 
 		public:
@@ -46,7 +46,7 @@ namespace ksw
 			}
 
 			// 후위
-			inline iterator operator++(T)
+			inline iterator operator++(int)
 			{
 				if (nullptr == CurNode->Next)
 					MsgBoxAssert("CurNode is End");
@@ -67,7 +67,7 @@ namespace ksw
 			}
 
 			// 후위
-			inline iterator operator--(T)
+			inline iterator operator--(int)
 			{
 				if (nullptr == CurNode->Prev)
 					MsgBoxAssert("CurNode is Start");
