@@ -102,9 +102,24 @@ namespace ksw
 		DoubleList();
 		DoubleList(size_t _Size);
 		DoubleList(size_t _Size, const T& _Val);
+		DoubleList(const DoubleList& _Other);
 
 		// Destructor
 		~DoubleList();
+
+		// Operator
+		DoubleList& operator=(const DoubleList& _Other)
+		{
+			clear();
+			Node* CurNode = _Other.Start->Next;
+			while (_Other.End != CurNode)
+			{
+				push_back(CurNode->Data);
+				CurNode = CurNode->Next;
+			}
+
+			return *this;
+		}
 
 	public:
 		// iterator
@@ -212,6 +227,23 @@ namespace ksw
 
 		for (int i = 0; i < _Size; ++i)
 			push_back(_Val);
+	}
+
+	template<typename T>
+	inline DoubleList<T>::DoubleList(const DoubleList& _Other)
+	{
+		Start = new Node();
+		End = new Node();
+
+		Start->Next = End;
+		End->Prev = Start;
+
+		Node* CurNode = _Other.Start->Next;
+		while (_Other.End != CurNode)
+		{
+			push_back(CurNode->Data);
+			CurNode = CurNode->Next;
+		}
 	}
 
 	template<typename T>

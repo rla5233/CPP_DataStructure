@@ -6,21 +6,38 @@ int main()
 	LeakCheck;
 
 	{
-		std::pair<std::string, int> p1 = { "AAA", 2 };
-		std::pair<std::string, int> p2 = { "BBB", 0 };
-		p1 = p2;
+		int* Num1 = new int(2);
+		int* Num2 = new int(0);
 
-		std::cout << p1.first << std::endl;
-		std::cout << p1.second << std::endl;
+		std::list<int*> p1 = { Num1 };
+		std::list<int*> p2 = { Num2 };
+		p2 = p1;
+
+		std::cout << p1.front() << std::endl;
+		std::cout << p2.front() << std::endl;
+
+		delete Num1;
+		delete Num2;
 	}
 
 	{
-		ksw::Pair<std::string, int> p1 = { "AAA", 2 };
-		ksw::Pair<std::string, int> p2 = { "BBB", 0 };
-		p1 = p2;
+		int* Num1 = new int(2);
+		int* Num2 = new int(0);
 
-		std::cout << p1.first << std::endl;
-		std::cout << p1.second << std::endl;
+		ksw::DoubleList<int*> p1;
+		p1.push_back(Num1);
+
+		ksw::DoubleList<int*> p2;
+		p2.push_back(Num2);
+
+		//p2.swap(p1);
+		p2 = p1;
+
+		std::cout << p1.front() << std::endl;
+		std::cout << p2.front() << std::endl;
+
+		delete Num1;
+		delete Num2;
 	}
 
 	return 0;
