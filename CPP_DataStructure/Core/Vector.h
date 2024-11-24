@@ -22,14 +22,24 @@ namespace ksw
 	public:
 		// Constructor
 		Vector() {};
-		Vector(const size_t _Size) {};
-		Vector(const size_t _Size, const T& _Val) {};
-		Vector(const Vector& _Other) {};
+		Vector(const size_t _Size);
+		Vector(const size_t _Size, const T& _Val);
+		Vector(const Vector& _Other);
 
 		// Destructor
 		~Vector();
 
 		// Operator
+		inline Vector& operator=(const Vector& _Other)
+		{
+			reserve(_Other.Size);
+
+			for (size_t i = 0; i < _Other.Size; ++i)
+				push_back(_Other.DataPtr[i]);
+
+			return *this;
+		}
+
 		inline T& operator[] (const size_t _Pos)
 		{
 			return DataPtr[_Pos];
@@ -65,6 +75,33 @@ namespace ksw
 	};
 
 	// ±¸Çö
+	template<typename T>
+	inline Vector<T>::Vector(const size_t _Size)
+	{
+		reserve(_Size);
+
+		for (size_t i = 0; i < _Size; ++i)
+			push_back(T());
+	}
+
+	template<typename T>
+	inline Vector<T>::Vector(const size_t _Size, const T& _Val)
+	{
+		reserve(_Size);
+
+		for (size_t i = 0; i < _Size; ++i)
+			push_back(_Val);
+	}
+
+	template<typename T>
+	inline Vector<T>::Vector(const Vector& _Other)
+	{
+		reserve(_Other.Size);
+
+		for (size_t i = 0; i < _Other.Size; ++i)
+			push_back(_Other.DataPtr[i]);
+	}
+
 	template<typename T>
 	inline Vector<T>::~Vector()
 	{

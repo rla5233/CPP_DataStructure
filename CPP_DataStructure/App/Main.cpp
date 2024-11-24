@@ -6,44 +6,53 @@ int main()
 	LeakCheck;
 
 	{
-		std::vector<int> v;
+		std::vector<int> v1;
 
-		for (int i = 0; i < 5; i++)
-			v.push_back(i);
+		v1.reserve(10);
+		v1.push_back(1);
+		v1.push_back(2);
+		v1.push_back(3);
+		v1.push_back(4);
+		v1.push_back(5);
 
-		v.pop_back();
+		//v1 = { 1, 2, 3, 4, 5 };
 
-		v.push_back(5);
+		std::vector<int> v2;
+		v2 = v1;
 
-		v.resize(8);
+		for (int i = 0; i < v1.size(); i++)
+			std::cout << v1[i] << ' ';
 
-		v.clear();
+		std::cout << std::endl;
+		for (int i = 0; i < v1.size(); i++)
+			std::cout << v2[i] << ' ';
 
 		int a = 0;
 	}
 
+	std::cout << std::endl;
+
 	{
-		ksw::Vector<int> v;
-		
-		v.reserve(10);
+		ksw::Vector<int> v1;
 
-		v.resize(5, 5);
+		v1.reserve(10);
+		v1.push_back(1);
+		v1.push_back(2);
+		v1.push_back(3);
+		v1.push_back(4);
+		v1.push_back(5);
 
-		for (int i = 0; i < 10; i++)
-			v.push_back(i + 10);
+		//v1 = { 1, 2, 3, 4, 5 };
 
-		for (int i = 0; i < 5; i++)
-			v.pop_back();
+		ksw::Vector<int> v2;
+		v2 = v1;
 
-		v.clear();
+		for (int i = 0; i < v1.size(); i++)
+			std::cout << v1[i] << ' ';
 
-		v.resize(7, 10);
-
-		v.clear();
-
-		if (v.empty())
-			int b = 0;
-	
+		std::cout << std::endl;
+		for (int i = 0; i < v1.size(); i++)
+			std::cout << v2[i] << ' ';
 
 		int a = 0;
 	}
