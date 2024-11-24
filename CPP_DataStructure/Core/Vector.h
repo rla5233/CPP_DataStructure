@@ -46,6 +46,7 @@ namespace ksw
 				if (Start == CurDataPtr)
 					MsgBoxAssert("Invaild Vector Range");
 
+				--CurDataPtr;
 				return *this;
 			}
 
@@ -62,16 +63,16 @@ namespace ksw
 			inline iterator operator+(size_t _Off)
 			{
 				T* Temp = CurDataPtr + _Off;
-				if (Start > Temp || End <= Temp)
+				if (Start > Temp || End < Temp)
 					MsgBoxAssert("Invaild Vector Range")
 
-					return iterator(Temp, Start, End);
+				return iterator(Temp, Start, End);
 			}
 
 			inline iterator operator-(size_t _Off)
 			{
 				T* Temp = CurDataPtr - _Off;
-				if (Start > Temp || End <= Temp)
+				if (Start > Temp || End < Temp)
 					MsgBoxAssert("Invaild Vector Range")
 
 				return iterator(Temp, Start, End);
@@ -139,8 +140,42 @@ namespace ksw
 			return iterator(DataPtr + Size, DataPtr, DataPtr + Size);
 		}
 
+		inline iterator insert(const iterator& _Iter, const T& _Val)
+		{
+			iterator Temp = _Iter;
+			
+			if (++Size > Capacity)
+			{
+				size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
+				if (NewCapacity == Capacity)
+					++NewCapacity;
+				
+				T* NewDataPtr = new T[NewCapacity];
+				size_t Diff = _Iter.CurDataPtr - DataPtr;
+
+
+
+
+				if (nullptr != DataPtr)
+				{
+					delete[] DataPtr;
+					DataPtr = nullptr;
+				}
+
+				Capacity = NewCapacity;
+				DataPtr = NewDataPtr;
+			}
+			else
+			{
+				for (auto it = end() - 1; it != _Iter; --it)
+					*it = *(it - 1);
+
+				(*Temp.CurDataPtr) = _Val;
+			}
+			
+			return Temp;
+		}
 		
-		// insert
 		// erase
 
 
@@ -247,7 +282,7 @@ namespace ksw
 			
 			if (nullptr != Temp)
 			{
-				for (int i = 0; i < Size; ++i)
+				for (size_t i = 0; i < Size; ++i)
 					DataPtr[i] = Temp[i];
 
 				delete[] Temp;
@@ -261,7 +296,7 @@ namespace ksw
 	{
 		if (_NewSize > Capacity)
 		{
-			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
 			if (NewCapacity == Capacity)
 				++NewCapacity;
 
@@ -284,7 +319,7 @@ namespace ksw
 	{
 		if (_NewSize > Capacity)
 		{
-			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
 			if (NewCapacity == Capacity)
 				++NewCapacity;
 
@@ -307,11 +342,19 @@ namespace ksw
 	{
 		if (_NewSize > Capacity)
 		{
-			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
 			if (NewCapacity == Capacity)
 				++NewCapacity;
 
-			reserve(NewCapacity > _NewSize ? NewCapacity : _NewSize);
+			Capacity = NewCapacity > _NewSize ? NewCapacity : _NewSize;
+
+			if (nullptr != DataPtr)
+			{
+				delete[] DataPtr;
+				DataPtr = nullptr;
+			}
+
+			DataPtr = new T[Capacity];
 		}
 
 		for (size_t i = 0; i < _NewSize; ++i)
@@ -325,7 +368,7 @@ namespace ksw
 	{
 		if (Capacity == Size)
 		{
-			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
 			if (NewCapacity == Capacity)
 				++NewCapacity;
 
