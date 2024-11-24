@@ -6,23 +6,9 @@ int main()
 	LeakCheck;
 
 	{
-		std::vector<int> v1 = { 1, 1, 1, 1, 1, 1 };
-		v1.push_back(1);
-		std::vector<int> v2 = { 0, 0, 0, 0, 0 };
+		std::vector<int> v1 = { 1, 2, 3, 4, 5 };
 
-		for (auto it = v1.begin(); it != v1.end(); ++it)
-		{
-			std::cout << *it << ' ';
-			--(*it);
-		}
-
-		std::cout << std::endl;
-		for (int i = 0; i < v1.size(); i++)
-			std::cout << v1[i] << ' ';
-
-		std::cout << std::endl;
-		for (int i = 0; i < v2.size(); i++)
-			std::cout << v2[i] << ' ';
+		auto it = v1.end() - 1;
 
 		int a = 0;
 	}
@@ -33,6 +19,10 @@ int main()
 		ksw::Vector<int> v1;
 		for (int i = 0; i < 8; i++)
 			v1.push_back(i + 10);
+
+		auto it2 = v1.begin() + 1;
+
+		int b = 0;
 
 		for (auto it = v1.begin(); it != v1.end(); ++it)
 		{

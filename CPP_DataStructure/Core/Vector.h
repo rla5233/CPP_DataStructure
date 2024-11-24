@@ -36,7 +36,7 @@ namespace ksw
 				if (End == CurDataPtr)
 					MsgBoxAssert("Invaild Vector Range");
 
-				iterator Temp(CurDataPtr++);
+				iterator Temp(CurDataPtr++, Start, End);
 				return Temp;
 			}
 
@@ -55,8 +55,26 @@ namespace ksw
 				if (Start == CurDataPtr)
 					MsgBoxAssert("Invaild Vector Range");
 
-				iterator Temp(CurDataPtr--);
+				iterator Temp(CurDataPtr--, Start, End);
 				return Temp;
+			}
+
+			inline iterator operator+(size_t _Off)
+			{
+				T* Temp = CurDataPtr + _Off;
+				if (Start > Temp || End <= Temp)
+					MsgBoxAssert("Invaild Vector Range")
+
+					return iterator(Temp, Start, End);
+			}
+
+			inline iterator operator-(size_t _Off)
+			{
+				T* Temp = CurDataPtr - _Off;
+				if (Start > Temp || End <= Temp)
+					MsgBoxAssert("Invaild Vector Range")
+
+				return iterator(Temp, Start, End);
 			}
 
 			inline T& operator*()
