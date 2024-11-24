@@ -100,8 +100,8 @@ namespace ksw
 	public:
 		// Constructor
 		DoubleList();
-		DoubleList(size_t _Size);
-		DoubleList(size_t _Size, const T& _Val);
+		DoubleList(const size_t _Size);
+		DoubleList(const size_t _Size, const T& _Val);
 		DoubleList(const DoubleList& _Other);
 
 		// Destructor
@@ -172,7 +172,7 @@ namespace ksw
 		}
 
 	public:
-		// ¸â¹ö ÇÔ¼ö
+		// Member Function
 		inline T& front();
 		inline T& back();
 
@@ -204,7 +204,7 @@ namespace ksw
 	}
 
 	template<typename T>
-	inline DoubleList<T>::DoubleList(size_t _Size)
+	inline DoubleList<T>::DoubleList(const size_t _Size)
 	{
 		Start = new Node();
 		End = new Node();
@@ -213,11 +213,11 @@ namespace ksw
 		End->Prev = Start;
 
 		for (int i = 0; i < _Size; ++i)
-			push_back(0);
+			push_back(T());
 	}
 
 	template<typename T>
-	inline DoubleList<T>::DoubleList(size_t _Size, const T& _Val)
+	inline DoubleList<T>::DoubleList(const size_t _Size, const T& _Val)
 	{
 		Start = new Node();
 		End = new Node();
@@ -262,7 +262,7 @@ namespace ksw
 	template<typename T>
 	inline T& DoubleList<T>::front()
 	{
-		if (Size == 0)
+		if (0 == Size)
 			MsgBoxAssert("List is Empty");
 
 		return Start->Next->Data;
@@ -271,7 +271,7 @@ namespace ksw
 	template<typename T>
 	inline T& DoubleList<T>::back()
 	{
-		if (Size == 0)
+		if (0 == Size)
 			MsgBoxAssert("List is Empty");
 		
 		return End->Prev->Data;
@@ -310,7 +310,7 @@ namespace ksw
 	template<typename T>
 	inline void DoubleList<T>::pop_front()
 	{
-		if (Size == 0)
+		if (0 == Size)
 			MsgBoxAssert("List is Empty");
 
 		Node* DelNode = Start->Next;
@@ -328,7 +328,7 @@ namespace ksw
 	template<typename T>
 	inline void DoubleList<T>::pop_back()
 	{
-		if (Size == 0)
+		if (0 == Size)
 			MsgBoxAssert("List is Empty");
 
 		Node* DelNode = End->Prev;

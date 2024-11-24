@@ -160,16 +160,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DoubleList.h" />
-    <ClInclude Include="List.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Pair.h" />
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">

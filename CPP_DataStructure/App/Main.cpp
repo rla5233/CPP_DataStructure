@@ -6,38 +6,46 @@ int main()
 	LeakCheck;
 
 	{
-		int* Num1 = new int(2);
-		int* Num2 = new int(0);
+		std::vector<int> v;
 
-		std::list<int*> p1 = { Num1 };
-		std::list<int*> p2 = { Num2 };
-		p2 = p1;
+		for (int i = 0; i < 5; i++)
+			v.push_back(i);
 
-		std::cout << p1.front() << std::endl;
-		std::cout << p2.front() << std::endl;
+		v.pop_back();
 
-		delete Num1;
-		delete Num2;
+		v.push_back(5);
+
+		v.resize(8);
+
+		v.clear();
+
+		int a = 0;
 	}
 
 	{
-		int* Num1 = new int(2);
-		int* Num2 = new int(0);
+		ksw::Vector<int> v;
+		
+		v.reserve(10);
 
-		ksw::DoubleList<int*> p1;
-		p1.push_back(Num1);
+		v.resize(5, 5);
 
-		ksw::DoubleList<int*> p2;
-		p2.push_back(Num2);
+		for (int i = 0; i < 10; i++)
+			v.push_back(i + 10);
 
-		//p2.swap(p1);
-		p2 = p1;
+		for (int i = 0; i < 5; i++)
+			v.pop_back();
 
-		std::cout << p1.front() << std::endl;
-		std::cout << p2.front() << std::endl;
+		v.clear();
 
-		delete Num1;
-		delete Num2;
+		v.resize(7, 10);
+
+		v.clear();
+
+		if (v.empty())
+			int b = 0;
+	
+
+		int a = 0;
 	}
 
 	return 0;

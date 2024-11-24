@@ -13,13 +13,13 @@
     <Filter Include="Pair">
       <UniqueIdentifier>{1176b3bf-1010-46d3-8a2d-9b7e20c3d78f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{3d365900-ee20-45b2-951c-14d242582e95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>List</Filter>
     </ClInclude>
     <ClInclude Include="Queue.h">
       <Filter>Queue</Filter>
@@ -29,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="Pair.h">
       <Filter>Pair</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Vector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
