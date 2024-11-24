@@ -49,10 +49,12 @@ namespace ksw
 		// Member Function
 		inline T& front();
 		inline T& back();
+		inline T& at(size_t _Pos);
 
 		inline void reserve(const size_t _NewCapacity);
 		inline void resize(const size_t _NewSize);
 		inline void resize(const size_t _NewSize, const T& _Val);
+		inline void assign(const size_t _NewSize, const T& _Val);
 
 		inline void push_back(const T& _Val);
 		inline void pop_back();
@@ -62,16 +64,12 @@ namespace ksw
 		inline bool empty();
 		inline void clear();
 
+		inline void swap(Vector& _Other);
+
 		// begin
 		// end
 		// insert
 		// erase
-		
-		// at
-		// assign
-
-		// swap
-
 	};
 
 	// ±¸Çö
@@ -133,6 +131,18 @@ namespace ksw
 	}
 
 	template<typename T>
+	inline T& Vector<T>::at(size_t _Pos)
+	{
+		if (0 == Size)
+			MsgBoxAssert("Vector is Empty");
+
+		if (Size <= _Pos)
+			MsgBoxAssert("Invaild Vector Range");
+
+		return DataPtr[_Pos];
+	}
+
+	template<typename T>
 	inline void Vector<T>::reserve(const size_t _NewCapacity)
 	{
 		if (_NewCapacity > Capacity)
@@ -155,17 +165,21 @@ namespace ksw
 	template<typename T>
 	inline void Vector<T>::resize(const size_t _NewSize)
 	{
+		if (_NewSize > Capacity)
+		{
+			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			if (NewCapacity == Capacity)
+				++NewCapacity;
+
+			reserve(NewCapacity > _NewSize ? NewCapacity : _NewSize);
+		}
+
 		size_t Diff = std::llabs(_NewSize - Size);
 
 		if (_NewSize > Size)
 		{
 			for (size_t i = 0; i < Diff; ++i)
 				push_back(T());
-		}
-		else if (_NewSize < Size)
-		{
-			for (size_t i = 0; i < Diff; ++i)
-				pop_back();
 		}
 
 		Size = _NewSize;
@@ -174,6 +188,15 @@ namespace ksw
 	template<typename T>
 	inline void Vector<T>::resize(const size_t _NewSize, const T& _Val)
 	{
+		if (_NewSize > Capacity)
+		{
+			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			if (NewCapacity == Capacity)
+				++NewCapacity;
+
+			reserve(NewCapacity > _NewSize ? NewCapacity : _NewSize);
+		}
+
 		size_t Diff = std::llabs(_NewSize - Size);
 
 		if (_NewSize > Size)
@@ -181,11 +204,24 @@ namespace ksw
 			for (size_t i = 0; i < Diff; ++i)
 				push_back(_Val);
 		}
-		else if (_NewSize < Size)
+
+		Size = _NewSize;
+	}
+
+	template<typename T>
+	inline void Vector<T>::assign(const size_t _NewSize, const T& _Val)
+	{
+		if (_NewSize > Capacity)
 		{
-			for (size_t i = 0; i < Diff; ++i)
-				pop_back();
+			int NewCapacity = static_cast<int>(Capacity * 1.5);
+			if (NewCapacity == Capacity)
+				++NewCapacity;
+
+			reserve(NewCapacity > _NewSize ? NewCapacity : _NewSize);
 		}
+
+		for (size_t i = 0; i < _NewSize; ++i)
+			DataPtr[i] = _Val;
 
 		Size = _NewSize;
 	}
@@ -237,5 +273,21 @@ namespace ksw
 	inline void Vector<T>::clear()
 	{
 		Size = 0;
+	}
+
+	template<typename T>
+	inline void Vector<T>::swap(Vector& _Other)
+	{
+		T* TempPtr = _Other.DataPtr;
+		size_t TempSize = _Other.Size;
+		size_t TempCapacity = _Other.Capacity;
+
+		_Other.DataPtr = DataPtr;
+		_Other.Size = Size;
+		_Other.Capacity = Capacity;
+
+		DataPtr = TempPtr;
+		Size = TempSize;
+		Capacity = TempCapacity;
 	}
 }
