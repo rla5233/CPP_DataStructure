@@ -16,7 +16,71 @@ namespace ksw
 		{
 			friend class Vector;
 		public:
+			iterator(T* _DataPtr, T* _Start, T* _End)
+				: CurDataPtr(_DataPtr), Start(_Start), End(_End) {};
+			~iterator() {};
 
+			// 전위
+			inline iterator operator++()
+			{
+				if (End == CurDataPtr)
+					MsgBoxAssert("Invaild Vector Range");
+
+				++CurDataPtr;
+				return *this;
+			}
+
+			// 후위
+			inline iterator operator++(int)
+			{
+				if (End == CurDataPtr)
+					MsgBoxAssert("Invaild Vector Range");
+
+				iterator Temp(CurDataPtr++);
+				return Temp;
+			}
+
+			// 전위
+			inline iterator operator--()
+			{
+				if (Start == CurDataPtr)
+					MsgBoxAssert("Invaild Vector Range");
+
+				return *this;
+			}
+
+			// 후위
+			inline iterator operator--(int)
+			{
+				if (Start == CurDataPtr)
+					MsgBoxAssert("Invaild Vector Range");
+
+				iterator Temp(CurDataPtr--);
+				return Temp;
+			}
+
+			inline T& operator*()
+			{
+				if (Start > CurDataPtr || End <= CurDataPtr)
+					MsgBoxAssert("Invaild Vector Range")
+
+				return *CurDataPtr;
+			}
+
+			inline bool operator==(const iterator& _Other)
+			{
+				return CurDataPtr == _Other.CurDataPtr;
+			}
+
+			inline bool operator!=(const iterator& _Other)
+			{
+				return CurDataPtr != _Other.CurDataPtr;
+			}
+
+		private:
+			T* CurDataPtr = nullptr;
+			T* Start = nullptr;
+			T* End = nullptr;
 		};
 
 	public:
@@ -46,6 +110,23 @@ namespace ksw
 		}
 
 	public:
+		// iterator
+		inline iterator begin()
+		{
+			return iterator(DataPtr, DataPtr, DataPtr + Size);
+		}
+
+		inline iterator end()
+		{
+			return iterator(DataPtr + Size, DataPtr, DataPtr + Size);
+		}
+
+		
+		// insert
+		// erase
+
+
+	public:
 		// Member Function
 		inline T& front();
 		inline T& back();
@@ -65,11 +146,6 @@ namespace ksw
 		inline void clear();
 
 		inline void swap(Vector& _Other);
-
-		// begin
-		// end
-		// insert
-		// erase
 	};
 
 	// 구현
