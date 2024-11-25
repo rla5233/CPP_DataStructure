@@ -118,14 +118,14 @@ namespace ksw
 			reserve(_Other.Size);
 
 			for (size_t i = 0; i < _Other.Size; ++i)
-				push_back(_Other.DataPtr[i]);
+				push_back(*(_Other.DataPtr + i));
 
 			return *this;
 		}
 
 		inline T& operator[] (const size_t _Pos)
 		{
-			return DataPtr[_Pos];
+			return *(DataPtr + _Pos);
 		}
 
 	public:
@@ -142,8 +142,6 @@ namespace ksw
 
 		inline iterator insert(const iterator& _Iter, const T& _Val)
 		{
-			iterator Temp = _Iter;
-			
 			if (++Size > Capacity)
 			{
 				size_t NewCapacity = static_cast<size_t>(Capacity * 1.5);
@@ -153,8 +151,13 @@ namespace ksw
 				T* NewDataPtr = new T[NewCapacity];
 				size_t Diff = _Iter.CurDataPtr - DataPtr;
 
+				for (size_t i = 0; i < Diff; ++i)
+					*(NewDataPtr + i) = *(DataPtr + i);
 
+				*(NewDataPtr + Diff) = _Val;
 
+				for (size_t i = Diff + 1; i < Size; ++i)
+					*(NewDataPtr + i) = *(DataPtr + i - 1);
 
 				if (nullptr != DataPtr)
 				{
@@ -164,16 +167,16 @@ namespace ksw
 
 				Capacity = NewCapacity;
 				DataPtr = NewDataPtr;
+				return iterator(DataPtr + Diff, DataPtr, DataPtr + Size);
 			}
 			else
 			{
 				for (auto it = end() - 1; it != _Iter; --it)
 					*it = *(it - 1);
 
-				(*Temp.CurDataPtr) = _Val;
+				(*_Iter.CurDataPtr) = _Val;
+				return iterator(_Iter);
 			}
-			
-			return Temp;
 		}
 		
 		// erase
@@ -226,7 +229,7 @@ namespace ksw
 		reserve(_Other.Size);
 
 		for (size_t i = 0; i < _Other.Size; ++i)
-			push_back(_Other.DataPtr[i]);
+			push_back(*(_Other.DataPtr + i));
 	}
 
 	template<typename T>
@@ -247,7 +250,7 @@ namespace ksw
 		if (0 == Size)
 			MsgBoxAssert("Vector is Empty");
 
-		return DataPtr[0];
+		return *(DataPtr);
 	}
 
 	template<typename T>
@@ -256,7 +259,7 @@ namespace ksw
 		if (0 == Size)
 			MsgBoxAssert("Vector is Empty");
 
-		return DataPtr[Size - 1];
+		return *(DataPtr + Size - 1);
 	}
 
 	template<typename T>
@@ -268,7 +271,7 @@ namespace ksw
 		if (Size <= _Pos)
 			MsgBoxAssert("Invaild Vector Range");
 
-		return DataPtr[_Pos];
+		return *(DataPtr + _Pos);
 	}
 
 	template<typename T>
@@ -283,7 +286,7 @@ namespace ksw
 			if (nullptr != Temp)
 			{
 				for (size_t i = 0; i < Size; ++i)
-					DataPtr[i] = Temp[i];
+					*(DataPtr + i) = *(Temp + i);
 
 				delete[] Temp;
 				Temp = nullptr;
@@ -358,7 +361,7 @@ namespace ksw
 		}
 
 		for (size_t i = 0; i < _NewSize; ++i)
-			DataPtr[i] = _Val;
+			*(DataPtr + i) = _Val;
 
 		Size = _NewSize;
 	}
@@ -375,7 +378,7 @@ namespace ksw
 			reserve(NewCapacity);
 		}
 
-		DataPtr[Size] = _Val;
+		*(DataPtr + Size) = _Val;
 		++Size;
 	}
 
