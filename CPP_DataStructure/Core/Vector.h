@@ -149,14 +149,14 @@ namespace ksw
 					++NewCapacity;
 				
 				T* NewDataPtr = new T[NewCapacity];
-				size_t Diff = _Iter.CurDataPtr - DataPtr;
+				size_t Off = _Iter.CurDataPtr - DataPtr;
 
-				for (size_t i = 0; i < Diff; ++i)
+				for (size_t i = 0; i < Off; ++i)
 					*(NewDataPtr + i) = *(DataPtr + i);
 
-				*(NewDataPtr + Diff) = _Val;
+				*(NewDataPtr + Off) = _Val;
 
-				for (size_t i = Diff + 1; i < Size; ++i)
+				for (size_t i = Off + 1; i < Size; ++i)
 					*(NewDataPtr + i) = *(DataPtr + i - 1);
 
 				if (nullptr != DataPtr)
@@ -167,7 +167,7 @@ namespace ksw
 
 				Capacity = NewCapacity;
 				DataPtr = NewDataPtr;
-				return iterator(DataPtr + Diff, DataPtr, DataPtr + Size);
+				return iterator(DataPtr + Off, DataPtr, DataPtr + Size);
 			}
 			else
 			{
@@ -179,8 +179,15 @@ namespace ksw
 			}
 		}
 		
-		// erase
+		inline iterator erase(const iterator& _Iter)
+		{
+			--Size;
 
+			for (auto it = _Iter; it != end(); ++it)
+				*it = *(it + 1);
+
+			return iterator(_Iter);
+		}
 
 	public:
 		// Member Function

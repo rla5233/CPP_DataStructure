@@ -8,13 +8,13 @@ int main()
 	{
 		std::vector<int> v1 = { 1, 2, 3, 4, 5 };
 		
-		v1.resize(10, 1);
-		v1.resize(15, 2);
 		//v1.reserve(6);
 
-		auto it1 = v1.end() - 5;
+		auto it1 = v1.begin() + 1;
+		auto it2 = v1.erase(it1);
 
-		auto it2 = v1.insert(it1, -1);
+		for (auto it = v1.begin(); it != v1.end(); ++it)
+			std::cout << *it << ' ';
 
 		int a = 0;
 	}
@@ -24,11 +24,11 @@ int main()
 	{
 		ksw::Vector<std::string> v1;
 		//v1.reserve(6);
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 			v1.push_back("A");
 
-		auto it1 = v1.begin() + 2;
-		auto it2 = v1.insert(it1, "B");
+		auto it1 = v1.begin() + 1;
+		auto it2 = v1.erase(it1);
 
 		for (auto it = v1.begin(); it != v1.end(); ++it)
 			std::cout << *it << ' ';
